@@ -1,32 +1,72 @@
-
+/* Smooth transitions for mode changes */
 body {
-  transition: background-color 0.3s, color 0.3s;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: background-color 0.5s, color 0.5s;
 }
 
-.light {
-  background-color: white;
-  color: black;
+/* Navbar transition for smooth mode toggling */
+.navbar {
+  transition: background-color 0.5s, color 0.5s;
+  padding: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  position:relative;
 }
 
-.dark {
-  background-color: black;
-  color: white;
+/* Centering and responsiveness */
+.container {
+  max-width: 960px;
+  margin: auto;
+  padding: 15px;
 }
 
+/* Button styles to maintain contrast */
+.btn-secondary {
+  margin-left: 10px;
+}
 
+/* Alert fade-in effect */
+.alert {
+  animation: fadeIn 0.3s ease-in-out;
+}
 
-
-@keyframes logo-spin {
+@keyframes fadeIn {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
   }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+/* Responsive tweaks */
+@media (max-width: 576px) {
+  .navbar-brand {
+    font-size: 1.2rem;
   }
+
+  .btn {
+    font-size: 0.9rem;
+    padding: 6px 12px;
+  }
+
+  .form-control {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .navbar-collapse {
+    text-align: center;
+  }
+}
+
+/* Dark mode adjustments */
+body.dark {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+.navbar-dark {
+  background-color: #1f1f1f;
 }
