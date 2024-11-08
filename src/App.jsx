@@ -11,6 +11,12 @@ import {
 import Contact from './component/Contact';
 import About from './component/About';
 import Home from './component/Home';
+import Class from './component/Class';
+import OldClass from './component/OldClass';
+import Func from './component/Func';
+import counter from './component/counter';
+import Params from './component/Params';
+
 
 function App() {
   // const [color, setColor] = useState("blue")
@@ -50,10 +56,18 @@ function App() {
       <Router>
         <Navbar title="This is Logo" mode={mode} text={text} toggleMode={toggleMode} />
         <Alert alert={alert} showAlert={showAlert} />
+        <Class />
+        <OldClass />
+        <Func />
+        <counter />
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/blogs' element={<Contact />} />
             <Route path='/about' element={<About />} />
+            <Route path='/user/:id' element={<Params />} />
+          
+
+
 
           </Routes>     
 

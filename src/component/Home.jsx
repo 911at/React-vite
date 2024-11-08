@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 
 const Home = () => {
   const [text, setText] = useState('');
-  const [alert, setAlert] = useState(null); 
-  const [boldedText, setBoldedText] = useState(text);
+  const [alert, setAlert] = useState(null);
 
   const showAlert = (message, type) => {
     setAlert({ message, type });
-    setTimeout(() => setAlert(null), 2000); 
+    setTimeout(() => setAlert(null), 2000);
   };
 
   const handleUpperCase = () => {
@@ -26,7 +25,6 @@ const Home = () => {
   };
 
   const handleChange = (e) => {
-    e.preventDefault();
     setText(e.target.value);
   };
 
@@ -34,21 +32,34 @@ const Home = () => {
     navigator.clipboard.writeText(text);
     showAlert('Text copied to clipboard!', 'info');
   };
-const handleBold = () => {
-  const textarea = document.getElementById('exampleFormControlTextarea1');
+
+  const handleBold = () => {
+    const textarea = document.getElementById('exampleFormControlTextarea1');
     const start = textarea.selectionStart;
     const end = textarea.selectionEnd;
     const selectedText = text.slice(start, end);
 
     if (selectedText) {
-      const newText = text.slice(0, start) + `<span style="font-weight: bold;">${selectedText}</span>` + text.slice(end);
+      const newText = text.slice(0, start) + `**${selectedText}**` + text.slice(end);
       setText(newText);
-      setBoldedText(newText);
       showAlert('Text made bold!', 'success');
     } else {
       showAlert('Please select text to make bold.', 'warning');
     }
-}
+  };
+
+  const renderText = () => {
+    // Split text based on '**' markers
+    const boldedParts = text.split(/(\*\*.*?\*\*)/g).map((part, index) =>
+      part.startsWith('**') && part.endsWith('**') ? (
+        <strong key={index}>{part.slice(2, -2)}</strong>
+      ) : (
+        part
+      )
+    );
+    return boldedParts;
+  };
+
   return (
     <div>
       <div className="mb-3 container">
@@ -79,10 +90,9 @@ const handleBold = () => {
         <h4>Analyze your text</h4>
         <p>{text.trim().split(/\s+/).length} words and {text.length} characters</p>
         <p>{0.008 * text.trim().split(/\s+/).length} minutes to read</p>
-
         <h4>Preview Text</h4>
-        <p>{text.length>0?text:"no preview to display"}</p>
-       </div>
+        <p>{text.length > 0 ? renderText() : "no preview to display"}</p>
+      </div>
     </div>
   );
 };
